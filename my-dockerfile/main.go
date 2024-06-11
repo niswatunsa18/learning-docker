@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package main
 
 import (
@@ -27,3 +28,34 @@ func main() {
 
 	e.Logger.Fatal(e.Start(":" + httpPort))
 }
+=======
+package main
+
+import (
+	_ "github.com/lib/pq"
+
+	"net/http"
+	"os"
+
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+)
+
+func main() {
+	e := echo.New()
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
+	e.GET("/", func(c echo.Context) error {
+		return c.HTML(http.StatusOK, "Hello, Docker! <3")
+	})
+
+	httpPort := os.Getenv("PORT")
+	if httpPort == "" {
+		httpPort = "80"
+	}
+
+	e.Logger.Fatal(e.Start(":" + httpPort))
+}
+>>>>>>> 9e95c95766843d3ae211258c173ebccb17b7ce55
